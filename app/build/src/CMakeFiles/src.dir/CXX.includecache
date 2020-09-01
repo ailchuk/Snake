@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/admin/Desktop/Snake/app/src/snake.cpp
+snake.h
+/Users/admin/Desktop/Snake/app/src/snake.h
+
+/Users/admin/Desktop/Snake/app/src/snake.h
+

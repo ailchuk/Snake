@@ -1,0 +1,6 @@
+/Users/admin/Desktop/Snake/app/build/CMakeFiles/rebuild_cache.dir
+/Users/admin/Desktop/Snake/app/build/CMakeFiles/edit_cache.dir
+/Users/admin/Desktop/Snake/app/build/CMakeFiles/snake.dir
+/Users/admin/Desktop/Snake/app/build/src/CMakeFiles/rebuild_cache.dir
+/Users/admin/Desktop/Snake/app/build/src/CMakeFiles/edit_cache.dir
+/Users/admin/Desktop/Snake/app/build/src/CMakeFiles/src.dir
