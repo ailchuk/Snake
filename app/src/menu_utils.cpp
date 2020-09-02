@@ -3,10 +3,12 @@
 void Menu::startGame(sf::RenderWindow& window) {
   Game game(&window);
 
-  while(game.isRunning()) {
+  while (game.isRunning()) {
     if (!game.m_endgame) {
-      game.update();
+      game.updateEvents();
       game.render();
     }
   }
 }
+
+// while (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))

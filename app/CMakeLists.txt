@@ -10,6 +10,7 @@ include_directories(../3dparty/SFML/include/SFML/)
 
 add_compile_options(
         -std=c++17
+        -Wno-unused-parameter
 )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../)

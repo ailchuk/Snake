@@ -21,9 +21,6 @@ void Menu::init_menu(sf::RenderWindow& window) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
       if (m_menuNum == NEW) {
         startGame(window);
-        window.display();
-        while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-          ;
       } else if (m_menuNum == BOARD) {
         leaderboard(window);
       } else if (m_menuNum == EXIT) {
