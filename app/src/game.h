@@ -8,22 +8,25 @@ class Snake;
 class Game {
  public:
   Game(sf::RenderWindow* window);
-  void init();
   bool isRunning();
   void updateEvents();
   void render();
+  int getScore();
+  bool getEndgame();
+  sf::Text getScoreLabel();
+  void showScore(std::string text, int m_score, int x, int y);
 
-  bool m_endgame;
  private:
-  Food* food;
-  sf::Clock clock;
-  Snake* snake;
-  
-  sf::Font m_font;
-  sf::Text m_scoreLabel;
+  bool m_endgame;
+  bool m_which_food;
   int m_score;
-  
   sf::RenderWindow* m_window;
-  sf::Event m_winEvent;
+  Food* m_food;
+  Snake* m_snake;
+  sf::Clock m_clock;
+  sf::Clock m_clock_extra;
+  sf::Font m_font;
+  sf::Text m_score_label;
+  sf::Event m_win_event;
 
 };

@@ -1,60 +1,83 @@
 #include "game.h"
 
 Game::Game(sf::RenderWindow* window) : m_window(window) {
-  init();
-  snake = new Snake(window);
-  food = new Food(window);
-}
-
-void Game::init() {
-  m_font.loadFromFile("app/resources/ArialRegular.ttf");
+  m_snake = new Snake(window);
+  m_food = new Food(window);
   m_endgame = false;
   m_score = 0;
+  m_which_food = false;
+  showScore("Score: ", m_score, 10, 5);
+}
 
-  m_scoreLabel.setFont(this->m_font);
-  m_scoreLabel.setString("Score: " + std::to_string(m_score));
-  m_scoreLabel.setPosition(sf::Vector2f(10, 5));
+void Game::showScore(std::string text, int m_score, int x, int y) {
+  m_font.loadFromFile("app/resources/ArialRegular.ttf");
+  m_score_label.setFont(m_font);
+  m_score_label.setString(text + std::to_string(m_score));
+  m_score_label.setPosition(sf::Vector2f(x, y));
 }
 
 bool Game::isRunning() { return m_window->isOpen(); }
 
+int Game::getScore() { return m_score; }
+
+bool Game::getEndgame() { return m_endgame; }
+
+sf::Text Game::getScoreLabel() { return m_score_label; }
+
 void Game::updateEvents() {
-  while (m_window->pollEvent(m_winEvent) && !m_endgame) {
+  while (m_window->pollEvent(m_win_event) && !m_endgame) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
       m_window->close();
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-      snake->changeMoveDirection(sf::Vector2<int>(-1, 0));
+      m_snake->changeMoveDirection(sf::Vector2<int>(-1, 0));
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-      snake->changeMoveDirection(sf::Vector2<int>(1, 0));
+      m_snake->changeMoveDirection(sf::Vector2<int>(1, 0));
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-      snake->changeMoveDirection(sf::Vector2<int>(0, -1));
+      m_snake->changeMoveDirection(sf::Vector2<int>(0, -1));
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-      snake->changeMoveDirection(sf::Vector2<int>(0, 1));
+      m_snake->changeMoveDirection(sf::Vector2<int>(0, 1));
   }
 }
 
 void Game::render() {
-  m_window->draw(m_scoreLabel);
-  food->drawFood();
-  snake->drawSnake();
-  snake->moveSnake();
+  int gameSpeed = 20;
+  sf::Time elapsed2 = m_clock_extra.getElapsedTime();
+  sf::Time elapsed1 = m_clock.getElapsedTime();
+  
+  m_window->draw(m_score_label);
+  m_food->drawFood();
+  m_food->drawExtraFood();
+  m_snake->drawSnake();
+  m_snake->moveSnake();
 
-  sf::Time elapsed1 = clock.getElapsedTime();
   if (elapsed1.asSeconds() >= 4) {
-    snake->subtractLen();
-    clock.restart();
+    m_snake->subtractLen();
+    m_clock.restart();
   }
-  if (snake->checkCollisions() || snake->getLen() == 2)
+  
+  if (m_snake->checkCollisions() || m_snake->getLen() == 2) {
     m_endgame = true;
-
-  if (food->checkFood(snake->getBody())) {
-    m_scoreLabel.setString("Score: " + std::to_string(++m_score));
-    snake->addLen();
-    food->changeFoodPos(snake->getBody());
-    clock.restart();
+  }
+  
+  if (m_food->checkFood(m_snake->getBody(), m_score, m_which_food)) {
+    if (m_which_food) {
+      m_food->changeExtraFoodPos(m_snake->getBody());
+      m_clock_extra.restart();
+    } else {
+      m_food->changeFoodPos(m_snake->getBody());
+      m_snake->addLen();
+    }
+    showScore("Score: ", m_score, 10, 5);
+    m_clock.restart();
+  }
+  
+  if (elapsed2.asSeconds() >= 4) {
+    m_food->drawExtraFood();
+    m_food->changeExtraFoodPos(m_snake->getBody());
+    m_clock_extra.restart();
   }
 
-  int gameSpeed = 20 - snake->getLen();
+  gameSpeed -= m_snake->getLen();
   m_window->setFramerateLimit(gameSpeed <= 10 ? 10 : gameSpeed);
   m_window->display();
   m_window->clear();

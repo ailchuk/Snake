@@ -5,6 +5,7 @@ Menu::Menu() : m_menuNum(NONE), m_isMenu(true) {
   m_board_text.loadFromFile("app/resources/board.png");
   m_exit_text.loadFromFile("app/resources/exit.png");
   m_background.loadFromFile("app/resources/back.png");
+  m_back_to_menu.loadFromFile("app/resources/back_menu.png");
 }
 
 void Menu::init_menu(sf::RenderWindow& window) {

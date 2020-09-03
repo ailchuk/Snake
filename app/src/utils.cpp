@@ -19,5 +19,6 @@ int randNum(int low, int up, int size) {
 
   while (res % size != 0)
     res++;
+
   return res;
 }

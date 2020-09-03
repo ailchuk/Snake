@@ -12,19 +12,15 @@ class Snake {
   void addLen();
   bool checkCollisions();
   bool checkFood();
-
   int getLen();
-  // sf::Vector2<int> getDir();
   std::vector<sf::RectangleShape> getBody();
+
  private:
-  sf::RenderWindow* win;
-
-  bool updateLen;
-  int snakeLen;
-  sf::Vector2<int> cur_Dir;
-  std::vector<sf::RectangleShape> body;
-
-  /* Load from options */
-  sf::Color colorBody;
-  sf::Color colorHead;
+  bool m_update_len;
+  int m_snake_len;
+  sf::RenderWindow* m_win;
+  sf::Vector2<int> m_cur_Dir;
+  std::vector<sf::RectangleShape> m_body;
+  sf::Color m_color_body;
+  sf::Color m_color_head;
 };
