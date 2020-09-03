@@ -16,7 +16,6 @@ void Game::showScore(std::string text, int m_score, int x, int y) {
   m_score_label.setPosition(sf::Vector2f(x, y));
 }
 
-bool Game::isRunning() { return m_window->isOpen(); }
 
 int Game::getScore() { return m_score; }
 

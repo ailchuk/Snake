@@ -21,7 +21,7 @@ class Menu {
   void leaderboard(sf::RenderWindow& window);
   void startGame(sf::RenderWindow& window);
   void showDeadMenu(sf::RenderWindow& win, Game& game);
-
+  void SaveResultToFile(int score);
  private:
   bool m_isMenu;
   int m_menuNum;

@@ -1,6 +1,6 @@
 #include "menu.h"
 
-Menu::Menu() : m_menuNum(NONE), m_isMenu(true) {
+Menu::Menu() : m_menuNum(NONE) {
   m_new_game_text.loadFromFile("app/resources/new.png");
   m_board_text.loadFromFile("app/resources/board.png");
   m_exit_text.loadFromFile("app/resources/exit.png");
@@ -16,7 +16,7 @@ void Menu::init_menu(sf::RenderWindow& window) {
   exit_b.setPosition(425, 270);
   back_menu.setPosition(0, 0);
 
-  while (m_isMenu) {
+  while (window.isOpen()) {
     m_menuNum = 0;
     swap_sprites(new_b, board_b, exit_b, window);
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {

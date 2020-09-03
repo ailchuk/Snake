@@ -3,12 +3,13 @@
 void Menu::startGame(sf::RenderWindow& window) {
   Game game(&window);
 
-  while (game.isRunning()) {
+  while (window.isOpen()) {
     if (!game.getEndgame()) {
       game.updateEvents();
       game.render();
     }
     if (game.getEndgame()) {
+      SaveResultToFile(game.getScore());
       showDeadMenu(window, game);
     }
   }
@@ -22,7 +23,7 @@ void Menu::showDeadMenu(sf::RenderWindow& win, Game& game) {
   new_b.setPosition(350, 370);
   new_b.setScale(sf::Vector2f(0.7, 0.7));
 
-  while (m_isMenu) {
+  while (win.isOpen()) {
     new_b.setColor(sf::Color::White);
     back_to_menu.setColor(sf::Color::White);
 
@@ -50,4 +51,8 @@ void Menu::showDeadMenu(sf::RenderWindow& win, Game& game) {
     win.display();
     win.clear();
   }
+}
+
+void Menu::SaveResultToFile(int score) {
+
 }
