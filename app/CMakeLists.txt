@@ -10,7 +10,7 @@ include_directories(../3dparty/SFML/include/SFML/)
 
 add_compile_options(-std=c++17)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../../)
 
 add_executable(snake ${SOURCE_EXE})
 
