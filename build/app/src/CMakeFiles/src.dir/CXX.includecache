@@ -722,13 +722,13 @@ snake.h
 utlis.h
 /Users/admin/Desktop/Snake/app/src/utlis.h
 
+/Users/admin/Desktop/Snake/app/src/menu.cpp
+menu.h
+/Users/admin/Desktop/Snake/app/src/menu.h
+
 /Users/admin/Desktop/Snake/app/src/menu.h
 header.h
 /Users/admin/Desktop/Snake/app/src/header.h
-
-/Users/admin/Desktop/Snake/app/src/menu_utils.cpp
-menu.h
-/Users/admin/Desktop/Snake/app/src/menu.h
 
 /Users/admin/Desktop/Snake/app/src/snake.h
 header.h

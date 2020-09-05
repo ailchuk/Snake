@@ -9,6 +9,11 @@ Game::Game(sf::RenderWindow* window) : m_window(window) {
   showScore("Score: ", m_score, 10, 5);
 }
 
+Game::~Game() {
+  delete m_snake;
+  delete m_food;
+}
+
 void Game::showScore(std::string text, int m_score, int x, int y) {
   m_font.loadFromFile("app/resources/ArialRegular.ttf");
   m_score_label.setFont(m_font);
@@ -39,7 +44,7 @@ void Game::updateEvents() {
 }
 
 void Game::render() {
-  int gameSpeed = 20;
+  int gameSpeed = 8;
   sf::Time elapsed2 = m_clock_extra.getElapsedTime();
   sf::Time elapsed1 = m_clock.getElapsedTime();
   
@@ -76,8 +81,8 @@ void Game::render() {
     m_clock_extra.restart();
   }
 
-  gameSpeed -= m_snake->getLen();
-  m_window->setFramerateLimit(gameSpeed <= 10 ? 10 : gameSpeed);
+  gameSpeed += m_snake->getLen();
+  m_window->setFramerateLimit(gameSpeed >= 50 ? 50 : gameSpeed);
   m_window->display();
   m_window->clear();
 }

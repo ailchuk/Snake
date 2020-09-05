@@ -8,22 +8,22 @@ Menu::Menu() : m_menuNum(NONE) {
   m_back_to_menu.loadFromFile("app/resources/back_menu.png");
 }
 
-void Menu::init_menu(sf::RenderWindow& window) {
+void Menu::initMenu(sf::RenderWindow& window) {
   sf::Sprite new_b(m_new_game_text), board_b(m_board_text), exit_b(m_exit_text), back_menu(m_background);
 
   new_b.setPosition(300, 30);
-  board_b.setPosition(250, 150);
+  board_b.setPosition(290, 150);
   exit_b.setPosition(425, 270);
   back_menu.setPosition(0, 0);
 
   while (window.isOpen()) {
     m_menuNum = 0;
-    swap_sprites(new_b, board_b, exit_b, window);
+    swapSprites(new_b, board_b, exit_b, window);
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
       if (m_menuNum == NEW) {
         startGame(window);
       } else if (m_menuNum == BOARD) {
-        leaderboard(window);
+        bestScore(window);
       } else if (m_menuNum == EXIT) {
         window.close();
         exit(0);
@@ -40,8 +40,8 @@ void Menu::init_menu(sf::RenderWindow& window) {
   }
 }
 
-void Menu::swap_sprites(sf::Sprite& new_b, sf::Sprite& board_b,
-                        sf::Sprite& exit_b, sf::RenderWindow& window) {
+void Menu::swapSprites(sf::Sprite& new_b, sf::Sprite& board_b,
+                       sf::Sprite& exit_b, sf::RenderWindow& window) {
   new_b.setColor(sf::Color::White);
   board_b.setColor(sf::Color::White);
   exit_b.setColor(sf::Color::White);
@@ -60,12 +60,34 @@ void Menu::swap_sprites(sf::Sprite& new_b, sf::Sprite& board_b,
   }
 }
 
-void Menu::leaderboard(sf::RenderWindow& window) {
-  // window.draw(back_menu);
-  window.display();
-  while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+void Menu::bestScore(sf::RenderWindow& window) {
+  std::vector<std::string> scores = getFile();
+  sf::Sprite board_b(m_board_text);
+  int i = 1;
+
+  m_font.loadFromFile("app/resources/ArialRegular.ttf");
+
+  board_b.setPosition(280, 50);
+
+  m_scores_label[0].setCharacterSize(20);
+  m_scores_label[0].setFont(m_font);
+  m_scores_label[0].setString("Press ESC to back...");
+  m_scores_label[0].setPosition(sf::Vector2f(400, 700));
+
+  for (const auto& it : scores) {
+    m_scores_label[i].setCharacterSize(30);
+    m_scores_label[i].setFont(m_font);
+    m_scores_label[i].setString(std::to_string(i) + ".  " + it);
+    m_scores_label[i].setPosition(sf::Vector2f(430, i * 40 + 130));
+    ++i;
   }
 
-  // TODO: open file and display score!!!
+  while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+    for (int i = 0; i < 11; ++i) {
+      window.draw(m_scores_label[i]);
+    }
+    window.display();
+    window.clear();
+    window.draw(board_b);
+  }
 }
-

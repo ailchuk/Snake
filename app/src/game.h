@@ -8,6 +8,7 @@ class Snake;
 class Game {
  public:
   Game(sf::RenderWindow* window);
+  ~Game();
   void updateEvents();
   void render();
   int getScore();

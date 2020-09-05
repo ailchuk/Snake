@@ -7,18 +7,23 @@ void Menu::startGame(sf::RenderWindow& window) {
     if (!game.getEndgame()) {
       game.updateEvents();
       game.render();
+    } else {
+      break;
     }
-    if (game.getEndgame()) {
-      SaveResultToFile(game.getScore());
-      showDeadMenu(window, game);
-    }
+  }
+  SaveResultToFile(game.getScore());
+  showDeadMenu(window, game);
+  if (m_menuNum == NEW) {
+    startGame(window);
+  } else if (m_menuNum == BACK) {
+    return;
   }
 }
 
 void Menu::showDeadMenu(sf::RenderWindow& win, Game& game) {
   sf::Sprite new_b(m_new_game_text), back_to_menu(m_back_to_menu);
 
-  game.showScore("Your score is: ", game.getScore(), 400, 300);
+  game.showScore("Your score is: ", game.getScore(), 390, 300);
   back_to_menu.setPosition(370, 450);
   new_b.setPosition(350, 370);
   new_b.setScale(sf::Vector2f(0.7, 0.7));
@@ -37,12 +42,10 @@ void Menu::showDeadMenu(sf::RenderWindow& win, Game& game) {
     }
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
       if (m_menuNum == NEW) {
-        win.clear();
-        startGame(win);
+        break;
       }
       if (m_menuNum == BACK) {
-        win.clear();
-        init_menu(win);
+        break;
       }
     }
     win.draw(game.getScoreLabel());
@@ -54,5 +57,43 @@ void Menu::showDeadMenu(sf::RenderWindow& win, Game& game) {
 }
 
 void Menu::SaveResultToFile(int score) {
+  std::vector<std::string> vec;
+  std::ifstream input(".scores");
+  std::string line;
 
+  while (std::getline(input, line)) {
+    if (line.size() > 0) {
+      vec.push_back(line);
+    }
+  }
+  if (score > 0)
+    vec.push_back(std::string(std::to_string(score)));
+  std::sort(vec.begin(), vec.end(),
+            [](std::string a, std::string b) {
+              return (std::stoi(a) < std::stoi(b));
+            });
+  std::reverse(vec.begin(), vec.end());
+  std::ofstream out(".scores", std::ofstream::out | std::ofstream::trunc);
+  int i = 0;
+  for (auto it = vec.begin(); it != vec.end() && i < 10; ++it, ++i) {
+    out << *it << std::endl;
+  }
+  out.close();
+  input.close();
 }
+
+std::vector<std::string> Menu::getFile() {
+  std::ifstream inp(".scores");
+  std::string line;
+  std::vector<std::string> vec;
+
+  if (inp) {
+    while (std::getline(inp, line)) {
+      vec.push_back(line);
+    }
+  } else {
+    std::cerr << "Error open scores\n";
+  }
+  return vec;
+}
+
