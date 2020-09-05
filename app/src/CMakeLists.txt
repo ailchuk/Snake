@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(src)
+project(src LANGUAGES CXX)
 
 include_directories(../../3dparty/sfml/include/)
 
