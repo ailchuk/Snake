@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libsrc.a CMakeFiles/src.dir/snake.cpp.o CMakeFiles/src.dir/menu.cpp.o CMakeFiles/src.dir/menu_utils.cpp.o CMakeFiles/src.dir/game.cpp.o CMakeFiles/src.dir/utils.cpp.o CMakeFiles/src.dir/food.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libsrc.a
