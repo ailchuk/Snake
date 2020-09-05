@@ -29,12 +29,10 @@ void Menu::initMenu(sf::RenderWindow& window) {
         exit(0);
       }
     }
-
     window.draw(back_menu);
     window.draw(new_b);
     window.draw(board_b);
     window.draw(exit_b);
-
     window.display();
     window.clear();
   }
@@ -66,7 +64,7 @@ void Menu::bestScore(sf::RenderWindow& window) {
   int i = 1;
 
   m_font.loadFromFile("app/resources/ArialRegular.ttf");
-
+  
   board_b.setPosition(280, 50);
 
   m_scores_label[0].setCharacterSize(20);
@@ -74,12 +72,12 @@ void Menu::bestScore(sf::RenderWindow& window) {
   m_scores_label[0].setString("Press ESC to back...");
   m_scores_label[0].setPosition(sf::Vector2f(400, 700));
 
-  for (const auto& it : scores) {
+  // for (const auto& it : scores) {
+  for (auto it = scores.begin(); it != scores.end() && i != 11; ++i, ++it) {
     m_scores_label[i].setCharacterSize(30);
     m_scores_label[i].setFont(m_font);
-    m_scores_label[i].setString(std::to_string(i) + ".  " + it);
+    m_scores_label[i].setString(std::to_string(i) + ".  " + *it);
     m_scores_label[i].setPosition(sf::Vector2f(430, i * 40 + 130));
-    ++i;
   }
 
   while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {

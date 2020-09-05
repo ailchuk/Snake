@@ -3,7 +3,8 @@
 int main() {
   Menu menu;
 
-  sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Snake", sf::Style::Titlebar | sf::Style::Close);
+  sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT),
+                          "Snake", sf::Style::Titlebar | sf::Style::Close);
 
   while (window.isOpen()) {
     sf::Event event;
@@ -14,6 +15,5 @@ int main() {
     window.clear();
     window.display();
   }
-
   return 0;
 }
