@@ -58,7 +58,7 @@ void Menu::showDeadMenu(sf::RenderWindow& win, Game& game) {
 
 void Menu::SaveResultToFile(int score) {
   std::vector<std::string> vec;
-  std::ifstream input("app/.scores");
+  std::ifstream input("app/resources/.scores");
   std::string line;
 
   while (std::getline(input, line)) {
@@ -73,7 +73,7 @@ void Menu::SaveResultToFile(int score) {
               return (std::stoi(a) < std::stoi(b));
             });
   std::reverse(vec.begin(), vec.end());
-  std::ofstream out("app/.scores", std::ofstream::out | std::ofstream::trunc);
+  std::ofstream out("app/resources/.scores", std::ofstream::out | std::ofstream::trunc);
   int i = 0;
   for (auto it = vec.begin(); it != vec.end() && i < 10; ++it, ++i) {
     out << *it << std::endl;
@@ -83,7 +83,7 @@ void Menu::SaveResultToFile(int score) {
 }
 
 std::vector<std::string> Menu::getFile() {
-  std::ifstream inp("app/.scores");
+  std::ifstream inp("app/resources/.scores");
   std::string line;
   std::vector<std::string> vec;
 
