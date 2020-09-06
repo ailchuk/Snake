@@ -72,7 +72,6 @@ void Menu::bestScore(sf::RenderWindow& window) {
   m_scores_label[0].setString("Press ESC to back...");
   m_scores_label[0].setPosition(sf::Vector2f(400, 700));
 
-  // for (const auto& it : scores) {
   for (auto it = scores.begin(); it != scores.end() && i != 11; ++i, ++it) {
     m_scores_label[i].setCharacterSize(30);
     m_scores_label[i].setFont(m_font);
