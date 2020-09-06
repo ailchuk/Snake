@@ -1,4 +1,4 @@
-# Snake 🐍
+# Snake
 ## Description
   A classic snake game made in C++ using SFML library.
 #### Developed only for MacOS
